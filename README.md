@@ -4,4 +4,4 @@
 
 ## Check it out!
 
-<a href="#" src="https://user-images.githubusercontent.com/80279532/204149423-79f7e0af-c956-4cca-a906-69fc0d35f574.png"></a>
+<a href="#"><img src="https://user-images.githubusercontent.com/80279532/204149423-79f7e0af-c956-4cca-a906-69fc0d35f574.png"></a>
