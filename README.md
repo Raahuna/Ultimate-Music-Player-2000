@@ -27,6 +27,6 @@
 ## 🤒 | Canım sıkıldığı zaman düzenlemeye devam edeceğim!
 
 <div align="center">
-  <h2><a href="https://github.com/Raahuna/Ultimate-Music-Player-2000/archive/refs/heads/main.zip">Dosyayı İndir.</a></h2>
-  <h2><a href="https://Ultimate-Music-Player-2000.raahuna.repl.co">Siteyi görüntüle.</a></h2>
+  <h3><a href="https://github.com/Raahuna/Ultimate-Music-Player-2000/archive/refs/heads/main.zip">📥 Dosyayı İndir.</a></h3>
+  <h3><a href="https://Ultimate-Music-Player-2000.raahuna.repl.co">🌐 Siteyi görüntüle.</a></h3>
 </div>
