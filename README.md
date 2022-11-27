@@ -24,4 +24,9 @@
 
 <hr>
 
-## Canım sıkıldığı zaman düzenlemeye devam edeceğim!
+## 🤒 | Canım sıkıldığı zaman düzenlemeye devam edeceğim!
+
+<div align="center">
+  <h2><a href="">Dosyayı İndir.</a></h2>
+  <h2><a href="https://Ultimate-Music-Player-2000.raahuna.repl.co">Siteyi görüntüle.</a></h2>
+</div>
