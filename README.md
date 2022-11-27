@@ -22,6 +22,8 @@
 
 ### Artık UMP-2000 kullanıyorsunuz! Upload tuşuna daha fazla basıp oynatıcıyı çoğaltıp şarkıları mashuplayabilirsiniz!
 
+https://user-images.githubusercontent.com/80279532/204150710-7821a0b6-2cd9-47de-a5a2-970cfa29481b.mp4
+
 <hr>
 
 ## 🤒 | Canım sıkıldığı zaman düzenlemeye devam edeceğim!
