@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ultimate Music Player</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
+
+        body {
+            font-family: 'Arvo', serif;
+            background: linear-gradient(rgb(0, 0, 0), rgb(24, 24, 24), rgb(44, 44, 44));
+            ;
+            color: white
+        }
+
+        h1 {
+            font-size: 5vw;
+            background-color: gray;
+            border-radius: 1.5vw;
+            width: 70vw;
+            padding: 0.8vw;
+            margin-left: 15%;
+        }
+
+        hr {
+            background-color: white;
+            width: 50%;
+        }
+
+        input {
+            font-size: 2.5vw;
+        }
+
+        #upload {
+            font-size: 2.5vw;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Ultimate Music Player 2000</h1>
+    <hr>
+    <input id="fileSelector" type="file" accept=".mp3, .mp4" multiple />
+    <br>
+    <br>
+    <button id="upload" onclick="upload()">Upload File</button>
+    <br>
+    <br>
+    <div id="musicDIV" style="margin-left: 35%; width: 400px; display: block; margin-bottom: 40px;"></div>
+    <script>
+        function upload() {
+            const selectedFile_type = document.getElementById("fileSelector").value.slice(-3);
+            const selectedFile_name = document.getElementById("fileSelector").value.replace("C:\\fakepath\\", "")
+
+            if (selectedFile_type == "mp3" || selectedFile_type == "mp4") {
+                var url;
+                var file = document.querySelector("#fileSelector").files[0];
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    url = event.target.result;
+
+                    ID = Math.floor(Math.random() * 999999) + Date.now()
+                    const DIV = document.createElement("div")
+                    const musicButton = document.createElement("button")
+                    const input = document.createElement("input")
+                    const currentTimeSpan = document.createElement("span")
+                    const durationSpan = document.createElement("span")
+                    const script = document.createElement("script")
+                    //Music Button
+                    musicButton.innerHTML = "Play: " + selectedFile_name
+                    musicButton.classList.add("button")
+                    musicButton.setAttribute("onclick", `playMusic_${ID}();`)
+                    musicButton.id = "musicButton_" + ID
+                    //DIV
+                    DIV.style = "width: 100%; position: relative; border-style: solid; padding: 1.5vw; margin-bottom: 0.5vw; margin-top: 1.5vw"
+                    //Input 
+                    input.classList.add("seek-bar")
+                    input.id = "seekBar_" + ID
+                    input.type = "range"
+                    input.setAttribute("value", "0")
+                    input.setAttribute("onmousedown", `clicked_${ID}(true)`)
+                    input.setAttribute("onmouseup", `clicked_${ID}(false)`)
+                    input.setAttribute("onclick", `clicked_${ID}('ONCE')`)
+                    //Current Time Span
+                    currentTimeSpan.innerHTML = "00:00"
+                    currentTimeSpan.style.float = "left"
+                    currentTimeSpan.id = "currentTime_" + ID
+                    //Duration Span
+                    durationSpan.innerHTML = "00:00"
+                    durationSpan.style.float = "right"
+                    durationSpan.id = "musicDuration_" + ID
+                    //Script
+                    script.innerHTML = `
+                    clickedTo_seekBar_${ID} = false
+                function clicked_${ID}(Status) {
+                    clickedTo_seekBar_${ID} = Status
+                }
+                const Music_${ID} = new Audio("${url}")
+                function playMusic_${ID}() {
+                    const musicDuration_${ID} = document.getElementById("musicDuration_${ID}");
+                    const CurrentTime_${ID} = document.getElementById("currentTime_${ID}");
+                    const seekBar_${ID} = document.getElementById("seekBar_${ID}");
+
+                    setInterval(() => {
+                        if (!Music_${ID}.paused) {
+                            let currentMinutes_${ID} = Math.floor(Music_${ID}.currentTime / 60);
+                            let currentSeconds_${ID} = Math.floor(Music_${ID}.currentTime - currentMinutes_${ID} * 60);
+
+                            let durationMinutes_${ID} = Math.floor(Music_${ID}.duration / 60);
+                            let durationSeconds_${ID} = Math.floor(Music_${ID}.duration - durationMinutes_${ID} * 60);
+
+                            if (currentSeconds_${ID} < 10) {
+                                currentSeconds_${ID} = "0" + currentSeconds_${ID};
+                            }
+                            if (durationSeconds_${ID} < 10) {
+                                durationSeconds_${ID} = "0" + durationSeconds_${ID};
+                            }
+                            if (currentMinutes_${ID} < 10) {
+                                currentMinutes_${ID} = "0" + currentMinutes_${ID};
+                            }
+                            if (durationMinutes_${ID} < 10) {
+                                durationMinutes_${ID} = "0" + durationMinutes_${ID};
+                            }
+
+                            if (clickedTo_seekBar_${ID} == "ONCE") { Music_${ID}.currentTime = Music_${ID}.duration * seekBar_${ID}.value / 100; clickedTo_seekBar_${ID} = false }
+                            if (clickedTo_seekBar_${ID}) {
+                                Music_${ID}.currentTime = Music_${ID}.duration * seekBar_${ID}.value / 100
+                            } else {
+                                seekBar_${ID}.value = Music_${ID}.currentTime / Music_${ID}.duration * 100;
+                            }
+                            CurrentTime_${ID}.innerHTML = currentMinutes_${ID} + ":" + currentSeconds_${ID};
+                            musicDuration_${ID}.innerHTML = durationMinutes_${ID} + ":" + durationSeconds_${ID};
+                        }
+                    }, 200);
+
+                    if (Music_${ID}.paused) {
+                        Music_${ID}.play();
+                        document.getElementById("musicButton_${ID}").innerHTML = "Stop"
+                    } else {
+                        Music_${ID}.pause();
+                        document.getElementById("musicButton_${ID}").innerHTML = "Play"
+                    }
+                }`
+                    //Append Child
+                    DIV.appendChild(input)
+                    DIV.appendChild(currentTimeSpan)
+                    DIV.appendChild(durationSpan)
+                    DIV.appendChild(script)
+                    document.getElementById("musicDIV").appendChild(DIV);
+                    document.getElementById("musicDIV").appendChild(musicButton);
+                };
+                reader.readAsDataURL(file);
+            } else if (!selectedFile_name) {
+                alert("Select a file!")
+            } else {
+                alert("Only mp4/mp3 files are allowed!");
+            }
+        }
+    </script>
+</body>
+
+</html>
